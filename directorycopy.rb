@@ -2,9 +2,9 @@ MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'augus
 'october', 'november', 'december']
 
 def input_students
-
+  
   students = []
-
+  
   while true do
 
     puts "Please enter the name and then the cohort of the student."
@@ -15,7 +15,7 @@ def input_students
     if name == 'done'
       break
     end     
-      if name.empty?
+      if name.empty? 
         puts 'Please enter a valid name'
         name = gets.chomp
       elsif name == 'done'
@@ -24,7 +24,7 @@ def input_students
 
     cohort = gets.chomp
 
-    while MONTHS.include?(cohort) == false do
+    while MONTHS.include?(cohort.downcase) == false do
     puts 'That is not a valid month, please re-enter'
     cohort = gets.chomp
      if cohort == 'done'
