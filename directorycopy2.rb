@@ -11,22 +11,17 @@ end
 def interactive_menu
   loop do
     print_menu
-    process($stdin.gets.chomp)
+    user_selection($stdin.gets.chomp)
   end
 end
 
-def process(selection)
+def user_selection(selection)
   case selection
-  when '1'
-    input_students
-  when '2'
-    show_students
-  when '3'
-    save_students
-  when '4'
-    load_students
-  when '9'
-    exit
+  when '1' then input_students
+  when '2' then show_students
+  when '3' then save_students
+  when '4' then load_students
+  when '9' then exit
   else
     puts "I don't know what you meant, try again"
   end
@@ -38,7 +33,7 @@ def input_students
 
   name = $stdin.gets.chomp
 
-  while !name.empty? do
+  until name.empty?
     add_students(name, :november)
     puts "Now we have #{@students.count} students"
     name = $stdin.gets.chomp
@@ -87,11 +82,13 @@ def load_students(filename = 'students.csv')
   file.close
 end
 
-def try_load_students
+def auto_load_students
   filename = ARGV.first
-  return if filename.nil?
 
-  if File.exist?(filename)
+  if filename.nil?
+    load_students
+    puts "Loaded #{@students.count} from students.csv"
+  elsif File.exist?(filename) 
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
@@ -100,5 +97,5 @@ def try_load_students
   end
 end
 
-try_load_students
+auto_load_students
 interactive_menu
